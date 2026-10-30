@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion des étudiants</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="entete">
+        <h1>Gestion des étudiants</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Accueil</a>
+            <a href="{{ url_for('ajouter') }}">Ajouter un étudiant</a>
+        </nav>
+    </header>
+
+    <main class="conteneur">
+        <div class="barre-titre">
+            <h2>Liste des étudiants</h2>
+            <a class="bouton bouton-vert" href="{{ url_for('ajouter') }}">Ajouter</a>
+        </div>
+
+        {% if etudiants %}
+        <div class="tableau-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Classe</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for etudiant in etudiants %}
+                    <tr>
+                        <td>{{ etudiant.id }}</td>
+                        <td>{{ etudiant.nom }}</td>
+                        <td>{{ etudiant.prenom }}</td>
+                        <td>{{ etudiant.classe }}</td>
+                        <td>{{ etudiant.note if etudiant.note is not none else '-' }}</td>
+                        <td>
+                            <a class="bouton bouton-jaune" href="{{ url_for('modifier', id=etudiant.id) }}">Modifier</a>
+                            <a class="bouton bouton-rouge" href="{{ url_for('supprimer', id=etudiant.id) }}" onclick="return confirm('Supprimer cet étudiant ?');">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="message">Aucun étudiant enregistré.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

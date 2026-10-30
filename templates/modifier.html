@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modifier un étudiant</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="entete">
+        <h1>Gestion des étudiants</h1>
+    </header>
+    <main class="conteneur">
+        <h2>Modifier un étudiant</h2>
+        <form class="formulaire" method="POST">
+            <label for="nom">Nom</label>
+            <input id="nom" type="text" name="nom" value="{{ etudiant.nom }}" required>
+
+            <label for="prenom">Prénom</label>
+            <input id="prenom" type="text" name="prenom" value="{{ etudiant.prenom }}" required>
+
+            <label for="classe">Classe</label>
+            <input id="classe" type="text" name="classe" value="{{ etudiant.classe }}" required>
+
+            <label for="note">Note</label>
+            <input id="note" type="number" name="note" min="0" max="20" step="0.01" value="{{ etudiant.note if etudiant.note is not none else '' }}">
+
+            <button class="bouton bouton-jaune" type="submit">Mettre à jour</button>
+        </form>
+        <a class="bouton bouton-gris" href="{{ url_for('index') }}">Retour</a>
+    </main>
+</body>
+</html>
